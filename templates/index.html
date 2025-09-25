@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Simulator</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Container for form and results */
+        .container {
+            background: white;
+            padding: 30px 40px;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Results styling */
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        li {
+            background: #f0f4f8;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            color: #333;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Compound Interest Simulator</h1>
+        <form method="POST">
+            <label>Initial Investment (₹):</label>
+            <input type="number" step="0.01" name="principal" required>
+
+            <label>Monthly Contribution (₹):</label>
+            <input type="number" step="0.01" name="monthly_contribution" required>
+
+            <label>Annual Interest Rate (%):</label>
+            <input type="number" step="0.01" name="annual_rate" required>
+
+            <label>Number of Years:</label>
+            <input type="number" name="years" required>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if balances %}
+            <h2>Yearly Balance Table:</h2>
+            <ul>
+                {% for balance in balances %}
+                    <li>Year {{ loop.index }}: ₹{{ "%.2f"|format(balance) }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Growth Curve:</h2>
+            <img src="data:image/png;base64,{{ img }}" alt="Compound Interest Growth">
+        {% endif %}
+    </div>
+</body>
+</html>
